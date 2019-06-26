@@ -12,8 +12,8 @@ import java.util.LinkedList;
 
 /**
  * Created by Tamim Maaz on 9/18/2016.
- * This class to contact with MDownloadAsyncManager and MCachingManager
- * This class to manage the requests that go to MDownloadAsyncManager
+ * This class to contact with MDownloadRxJavaManager and MCachingManager
+ * This class to manage the requests that go to MDownloadRxJavaManager
  * If two or more request for the same url this class will manage them
  */
 public class MProviderMDownloadDataType {
@@ -101,8 +101,8 @@ public class MProviderMDownloadDataType {
         });
 
         // Get from download manager
-        final MDownloadAsyncManager mDownloadAsyncManager = new MDownloadAsyncManager();
-       ApiService client= mDownloadAsyncManager.getService(newMDownloadDataType, new IMProvider() {
+        final MDownloadRxJavaManager mDownloadRxJavaManager = new MDownloadRxJavaManager();
+       ApiService client= mDownloadRxJavaManager.getService(newMDownloadDataType, new IMProvider() {
            @Override
            public void markAsDone(MDownloadDataType mDownloadDataType) {
                // put in the cache when mark as done

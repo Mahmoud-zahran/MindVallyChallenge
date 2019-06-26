@@ -3,6 +3,7 @@ package com.teztour.zahranrxdownloadandcachelib.utils;
 
 import com.teztour.zahranrxdownloadandcachelib.ApiService;
 import com.teztour.zahranrxdownloadandcachelib.interfaces.IMProvider;
+import com.teztour.zahranrxdownloadandcachelib.models.MDataType;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
 import com.teztour.zahranrxdownloadandcachelib.module.RetrofitSingleton;
 
@@ -15,13 +16,19 @@ import retrofit2.Retrofit;
 /**
  * Created by Tamim Maaz on 9/18/2016.
  */
-public class MDownloadAsyncManager {
+public class MDownloadRxJavaManager {
 
-    public MDownloadAsyncManager() {
+    public MDownloadRxJavaManager() {
     }
 
     public ApiService getService(final MDownloadDataType mDownloadDataType, final IMProvider imProvider) {
-        Retrofit retrofit = RetrofitSingleton.getInstanceJson();
+        Retrofit retrofit = null;
+        if (mDownloadDataType.getmDataType()== MDataType.JSON){
+             retrofit  = RetrofitSingleton.getInstanceJson();
+        }else if (mDownloadDataType.getmDataType()==MDataType.IMAGE){
+            retrofit =RetrofitSingleton.getInstanceString();
+        }
+
         ApiService service = retrofit.create(ApiService.class);
         service.getApiData()
         .subscribeOn(Schedulers.io())
