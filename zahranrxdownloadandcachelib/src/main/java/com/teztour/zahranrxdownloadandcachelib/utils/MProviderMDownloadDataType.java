@@ -2,10 +2,9 @@ package com.teztour.zahranrxdownloadandcachelib.utils;
 
 import android.util.Log;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.talpro213.masyncdownloadlib.interfaces.IMDownloadDataType;
-import com.talpro213.masyncdownloadlib.interfaces.IMProvider;
-import com.talpro213.masyncdownloadlib.models.MDownloadDataType;
+import com.teztour.zahranrxdownloadandcachelib.ApiService;
+import com.teztour.zahranrxdownloadandcachelib.interfaces.IMDownloadDataType;
+import com.teztour.zahranrxdownloadandcachelib.interfaces.IMProvider;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
 
 import java.util.HashMap;
@@ -20,7 +19,7 @@ import java.util.LinkedList;
 public class MProviderMDownloadDataType {
     private static MProviderMDownloadDataType instance;
     private HashMap<String, LinkedList<MDownloadDataType>> allRequestsByKey = new HashMap<>();
-    private HashMap<String, AsyncHttpClient> allRequestsClient = new HashMap<>();
+    private HashMap<String, ApiService> allRequestsClient = new HashMap<>();
     private MCachingManager mCachingManager;
 
     private MProviderMDownloadDataType() {
@@ -42,8 +41,8 @@ public class MProviderMDownloadDataType {
             mDownloadDataTypeFromCache.comeFrom = "Cache";
             // call interface
             IMDownloadDataType imDownloadDataType = mDownloadDataType.getImDownloadDataType();
-            imDownloadDataType.onStart(mDownloadDataTypeFromCache);
-            imDownloadDataType.onSuccess(mDownloadDataTypeFromCache);
+            imDownloadDataType.onSubscribe(mDownloadDataTypeFromCache);
+            imDownloadDataType.onNext(mDownloadDataTypeFromCache);
             return;
         }
 
@@ -66,71 +65,71 @@ public class MProviderMDownloadDataType {
         // Create new MDownloadDataType by clone it from the parameter
         MDownloadDataType newMDownloadDataType = mDownloadDataType.getCopyOfMe(new IMDownloadDataType() {
             @Override
-            public void onStart(MDownloadDataType mDownloadDataType) {
+            public void onSubscribe(MDownloadDataType mDownloadDataType) {
                 for (MDownloadDataType m : allRequestsByKey.get(mDownloadDataType.getKeyMD5())) {
                     m.setData(mDownloadDataType.getData());
-                    m.getImDownloadDataType().onStart(m);
+                    m.getImDownloadDataType().onSubscribe(m);
                 }
             }
 
             @Override
-            public void onSuccess(MDownloadDataType mDownloadDataType) {
+            public void onNext(MDownloadDataType mDownloadDataType) {
                 for (MDownloadDataType m : allRequestsByKey.get(mDownloadDataType.getKeyMD5())) {
                     m.setData(mDownloadDataType.getData());
                     Log.e("HERRRR", m.comeFrom);
-                    m.getImDownloadDataType().onSuccess(m);
+                    m.getImDownloadDataType().onNext(m);
                 }
                 allRequestsByKey.remove(mDownloadDataType.getKeyMD5());
             }
 
             @Override
-            public void onFailure(MDownloadDataType mDownloadDataType, int statusCode, byte[] errorResponse, Throwable e) {
+            public void onError(MDownloadDataType mDownloadDataType, Throwable e) {
                 for (MDownloadDataType m : allRequestsByKey.get(mDownloadDataType.getKeyMD5())) {
                     m.setData(mDownloadDataType.getData());
-                    m.getImDownloadDataType().onFailure(m, statusCode, errorResponse, e);
+                    m.getImDownloadDataType().onError(m, e);
                 }
                 allRequestsByKey.remove(mDownloadDataType.getKeyMD5());
             }
 
             @Override
-            public void onRetry(MDownloadDataType mDownloadDataType, int retryNo) {
+            public void onComplete() {
                 for (MDownloadDataType m : allRequestsByKey.get(mDownloadDataType.getKeyMD5())) {
                     m.setData(mDownloadDataType.getData());
-                    m.getImDownloadDataType().onRetry(m, retryNo);
-                }
+                    m.getImDownloadDataType().onComplete();
+            }
             }
         });
 
         // Get from download manager
         final MDownloadAsyncManager mDownloadAsyncManager = new MDownloadAsyncManager();
-        AsyncHttpClient client = mDownloadAsyncManager.get(newMDownloadDataType, new IMProvider() {
-            @Override
-            public void markAsDone(MDownloadDataType mDownloadDataType) {
-                // put in the cache when mark as done
-                mCachingManager.putMDownloadDataType(mDownloadDataType.getKeyMD5(), mDownloadDataType);
-                Log.e("HERRRR", "MARK AS DONE");
-                allRequestsClient.remove(mDownloadDataType.getKeyMD5());
-            }
+       ApiService client= mDownloadAsyncManager.getService(newMDownloadDataType, new IMProvider() {
+           @Override
+           public void markAsDone(MDownloadDataType mDownloadDataType) {
+               // put in the cache when mark as done
+               mCachingManager.putMDownloadDataType(mDownloadDataType.getKeyMD5(), mDownloadDataType);
+               Log.e("HERRRR", "MARK AS DONE");
+               allRequestsClient.remove(mDownloadDataType.getKeyMD5());
+           }
 
-            @Override
-            public void onFailure(MDownloadDataType mDownloadDataType) {
-                allRequestsClient.remove(mDownloadDataType.getKeyMD5());
-            }
+           @Override
+           public void onFailure(MDownloadDataType mDownloadDataType) {
+               allRequestsClient.remove(mDownloadDataType.getKeyMD5());
+           }
 
-            @Override
-            public void markAsCancel(MDownloadDataType mDownloadDataType) {
-                allRequestsClient.remove(mDownloadDataType.getUrl());
-            }
-        });
-
+           @Override
+           public void markAsCancel(MDownloadDataType mDownloadDataType) {
+               allRequestsClient.remove(mDownloadDataType.getUrl());
+           }
+       });
         allRequestsClient.put(mKey, client);
+
     }
 
     public void cancelRequest(MDownloadDataType mDownloadDataType){
         if(allRequestsByKey.containsKey(mDownloadDataType.getKeyMD5())) {
             allRequestsByKey.get(mDownloadDataType.getKeyMD5()).remove(mDownloadDataType);
             mDownloadDataType.comeFrom = "Canceled";
-            mDownloadDataType.getImDownloadDataType().onFailure(mDownloadDataType, 0, null, null);
+            mDownloadDataType.getImDownloadDataType().onError(mDownloadDataType, new Exception("canceled"));
         }
     }
 

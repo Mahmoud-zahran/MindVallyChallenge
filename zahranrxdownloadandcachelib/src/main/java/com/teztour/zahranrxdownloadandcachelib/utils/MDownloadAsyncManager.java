@@ -59,6 +59,7 @@ public class MDownloadAsyncManager {
             public void onComplete() {
                 // Updates UI with data
                 // called when request is retried
+                mDownloadDataType.getImDownloadDataType().onComplete();
                 imProvider.markAsCancel(mDownloadDataType);
 
             }
