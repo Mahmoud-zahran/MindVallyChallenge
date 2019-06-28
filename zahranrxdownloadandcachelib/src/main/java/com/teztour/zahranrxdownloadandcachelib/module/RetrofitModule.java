@@ -13,10 +13,13 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+/**
+ * Created by Mahmoud Zahran on 26/06/2019.
+ *
+ * This module handles creation of Retrofit Instance and
+ * allows for interception of calls, using HttpLoggingInterceptor.
+ */
 
-//This module handles creation of Retrofit Instance and
-// allows for intercerption of calls,
-// using HttpLoggingInterceptor.
 @Module
 public class RetrofitModule {
 

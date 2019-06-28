@@ -3,7 +3,8 @@ package com.teztour.zahranrxdownloadandcachelib.interfaces;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
 
 /**
- * Created by Tamim Maaz on 9/18/2016.
+ * Created by Mahmoud Zahran on 26/06/2019.
+ *
  */
 public interface IMProvider {
     public void markAsDone(MDownloadDataType mDownloadDataType);

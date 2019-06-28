@@ -36,7 +36,7 @@ dependencies {
     implementation 'com.google.dagger:dagger-android:2.15'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
-    //RxJava
+//RxJava
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.13'
 //retrofit

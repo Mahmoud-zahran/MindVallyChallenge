@@ -11,19 +11,20 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
- * Created by Tamim Maaz on 9/18/2016.
- * This class to contact with MDownloadRxJavaManager and MCachingManager
- * This class to manage the requests that go to MDownloadRxJavaManager
+ * Created by Mahmoud Zahran on 26/06/2019.
+ *
+ * This class to contact with DSDownloadRxJavaManager and DSCachingManager
+ * This class to manage the requests that go to DSDownloadRxJavaManager
  * If two or more request for the same url this class will manage them
  */
 public class MProviderMDownloadDataType {
     private static MProviderMDownloadDataType instance;
     private HashMap<String, LinkedList<MDownloadDataType>> allRequestsByKey = new HashMap<>();
     private HashMap<String, ApiService> allRequestsClient = new HashMap<>();
-    private MCachingManager mCachingManager;
+    private DSCachingManager mDSCachingManager;
 
     private MProviderMDownloadDataType() {
-        mCachingManager = MCachingManager.getInstance();
+        mDSCachingManager = DSCachingManager.getInstance();
     }
 
     public static MProviderMDownloadDataType getInstance() {
@@ -36,7 +37,7 @@ public class MProviderMDownloadDataType {
     public void getRequest(final MDownloadDataType mDownloadDataType) {
         final String mKey = mDownloadDataType.getKeyMD5();
         // Check if exist in the cache
-        MDownloadDataType mDownloadDataTypeFromCache = mCachingManager.getMDownloadDataType(mKey);
+        MDownloadDataType mDownloadDataTypeFromCache = mDSCachingManager.getMDownloadDataType(mKey);
         if (mDownloadDataTypeFromCache != null) {
             mDownloadDataTypeFromCache.comeFrom = "Cache";
             // call interface
@@ -101,12 +102,12 @@ public class MProviderMDownloadDataType {
         });
 
         // Get from download manager
-        final MDownloadRxJavaManager mDownloadRxJavaManager = new MDownloadRxJavaManager();
-       ApiService client= mDownloadRxJavaManager.getService(newMDownloadDataType, new IMProvider() {
+        final DSDownloadRxJavaManager mDSDownloadRxJavaManager = new DSDownloadRxJavaManager();
+       ApiService client= mDSDownloadRxJavaManager.getService(newMDownloadDataType, new IMProvider() {
            @Override
            public void markAsDone(MDownloadDataType mDownloadDataType) {
                // put in the cache when mark as done
-               mCachingManager.putMDownloadDataType(mDownloadDataType.getKeyMD5(), mDownloadDataType);
+               mDSCachingManager.saveMDownloadDataType(mDownloadDataType.getKeyMD5(), mDownloadDataType);
                Log.e("HERRRR", "MARK AS DONE");
                allRequestsClient.remove(mDownloadDataType.getKeyMD5());
            }
@@ -138,6 +139,6 @@ public class MProviderMDownloadDataType {
     }
 
     public void clearTheCash(){
-        mCachingManager.clearTheCash();
+        mDSCachingManager.clearTheCache();
     }
 }

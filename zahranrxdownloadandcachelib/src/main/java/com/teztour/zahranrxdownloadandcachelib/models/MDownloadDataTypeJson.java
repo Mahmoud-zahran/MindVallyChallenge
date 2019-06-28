@@ -6,7 +6,8 @@ import com.teztour.zahranrxdownloadandcachelib.interfaces.IMDownloadDataType;
 import java.lang.reflect.Type;
 
 /**
- * Created by Tamim Maaz on 9/18/2016.
+ * Created by Mahmoud Zahran on 26/06/2019.
+ *
  */
 public class MDownloadDataTypeJson extends MDownloadDataType {
 

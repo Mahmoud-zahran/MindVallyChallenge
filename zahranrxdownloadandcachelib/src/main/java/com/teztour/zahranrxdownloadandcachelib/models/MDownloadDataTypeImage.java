@@ -6,7 +6,8 @@ import android.graphics.BitmapFactory;
 import com.teztour.zahranrxdownloadandcachelib.interfaces.IMDownloadDataType;
 
 /**
- * Created by Tamim Maaz on 9/18/2016.
+ * Created by Mahmoud Zahran on 26/06/2019.
+ *
  */
 public class MDownloadDataTypeImage extends MDownloadDataType {
 

@@ -5,14 +5,23 @@ import android.util.LruCache;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
 
 /**
- * Created by Tamim Maaz on 9/18/2016.
+ * Created by Mahmoud Zahran on 25/06/2019.
+ *
+ * this class as data service as a caching manager.
+ * have the following features
+ * - private constructor to make singleton design pattern
+ * - provide instance only from get instance function.
+ * - get downloaded Data using the key that used to save it before.
+ * - save downloaded Data to memory using LruCache class key,value.
+ * - finally we have Clear cache function to empty cache.
+ *
  */
-public class MCachingManager {
+public class DSCachingManager {
     private int maxCacheSize;
-    private static MCachingManager instance;
+    private static DSCachingManager instance;
     private LruCache<String, MDownloadDataType> mDownloadDataTypeCache;
 
-    private MCachingManager() {
+    private DSCachingManager() {
         // Get max available VM memory, exceeding this amount will throw an
         // OutOfMemory exception. Stored in kilobytes as LruCache takes an
         // int in its constructor.
@@ -22,10 +31,10 @@ public class MCachingManager {
         maxCacheSize =   maxMemory / 8; // 4 * 1024 * 1024; // 4MiB
         mDownloadDataTypeCache = new LruCache<>(maxCacheSize);
     }
-
-    public static MCachingManager getInstance() {
+   //provide instance
+    public static DSCachingManager getInstance() {
         if (instance == null) {
-            instance = new MCachingManager();
+            instance = new DSCachingManager();
         }
         return instance;
     }
@@ -34,11 +43,11 @@ public class MCachingManager {
         return mDownloadDataTypeCache.get(key);
     }
 
-    public boolean putMDownloadDataType(String key, MDownloadDataType mDownloadDataType) {
+    public boolean saveMDownloadDataType(String key, MDownloadDataType mDownloadDataType) {
         return mDownloadDataTypeCache.put(key, mDownloadDataType) != null;
     }
 
-    public void clearTheCash() {
+    public void clearTheCache() {
         mDownloadDataTypeCache.evictAll();
     }
 }
