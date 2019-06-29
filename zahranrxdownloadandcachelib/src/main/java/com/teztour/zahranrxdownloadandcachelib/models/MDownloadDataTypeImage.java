@@ -3,7 +3,7 @@ package com.teztour.zahranrxdownloadandcachelib.models;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.teztour.zahranrxdownloadandcachelib.interfaces.IMDownloadDataType;
+import com.teztour.zahranrxdownloadandcachelib.interfaces.IDSDownloadDataType;
 
 /**
  * Created by Mahmoud Zahran on 26/06/2019.
@@ -11,13 +11,13 @@ import com.teztour.zahranrxdownloadandcachelib.interfaces.IMDownloadDataType;
  */
 public class MDownloadDataTypeImage extends MDownloadDataType {
 
-    public MDownloadDataTypeImage(String url, IMDownloadDataType imDownloadDataType) {
-        super(url, MDataType.IMAGE, imDownloadDataType);
+    public MDownloadDataTypeImage(String url, IDSDownloadDataType imIDSDownloadDataType) {
+        super(url, MDataType.IMAGE, imIDSDownloadDataType);
     }
 
     @Override
-    public MDownloadDataType getCopyOfMe(IMDownloadDataType imDownloadDataType) {
-        MDownloadDataType mDownloadDataType = new MDownloadDataTypeImage(this.getUrl(), imDownloadDataType);
+    public MDownloadDataType getCopyOfMe(IDSDownloadDataType imIDSDownloadDataType) {
+        MDownloadDataType mDownloadDataType = new MDownloadDataTypeImage(this.getUrl(), imIDSDownloadDataType);
         return mDownloadDataType;
     }
 

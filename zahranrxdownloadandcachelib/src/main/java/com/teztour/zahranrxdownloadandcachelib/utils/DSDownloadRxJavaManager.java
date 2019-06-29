@@ -2,7 +2,7 @@ package com.teztour.zahranrxdownloadandcachelib.utils;
 
 
 import com.teztour.zahranrxdownloadandcachelib.ApiService;
-import com.teztour.zahranrxdownloadandcachelib.interfaces.IMProvider;
+import com.teztour.zahranrxdownloadandcachelib.interfaces.IDSProvider;
 import com.teztour.zahranrxdownloadandcachelib.models.MDataType;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
 import com.teztour.zahranrxdownloadandcachelib.module.RetrofitSingleton;
@@ -22,8 +22,8 @@ public class DSDownloadRxJavaManager {
     public DSDownloadRxJavaManager() {
     }
 
-    public ApiService getService(final MDownloadDataType mDownloadDataType, final IMProvider imProvider) {
-        Retrofit retrofit = null;
+    public ApiService getService(final MDownloadDataType mDownloadDataType, final IDSProvider imIDSProvider) {
+        Retrofit retrofit = RetrofitSingleton.getInstanceJson();
         if (mDownloadDataType.getmDataType()== MDataType.JSON){
              retrofit  = RetrofitSingleton.getInstanceJson();
         }else if (mDownloadDataType.getmDataType()==MDataType.IMAGE){
@@ -38,17 +38,17 @@ public class DSDownloadRxJavaManager {
             @Override
             public void onSubscribe(Disposable d) {
                 // called before request is started
-                mDownloadDataType.getImDownloadDataType().onSubscribe(mDownloadDataType);
+                mDownloadDataType.getImIDSDownloadDataType().onSubscribe(mDownloadDataType);
             }
 
             @Override
             public void onNext(MDownloadDataType mpDownloadDataType) {
                 // called when response HTTP status is "200 OK"
                 mDownloadDataType.setData(mpDownloadDataType.getData());
-                mDownloadDataType.getImDownloadDataType().onNext(mDownloadDataType);
+                mDownloadDataType.getImIDSDownloadDataType().onNext(mDownloadDataType);
 
                 // This call for provider to manage it
-                imProvider.markAsDone(mDownloadDataType);
+                imIDSProvider.markAsDone(mDownloadDataType);
 
             }
 
@@ -56,10 +56,10 @@ public class DSDownloadRxJavaManager {
             @Override
             public void onError(Throwable e) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                mDownloadDataType.getImDownloadDataType().onError(mDownloadDataType, e);
+                mDownloadDataType.getImIDSDownloadDataType().onError(mDownloadDataType, e);
 
                 // This call for provider to manage it
-                imProvider.onFailure(mDownloadDataType);
+                imIDSProvider.onFailure(mDownloadDataType);
 
             }
 
@@ -67,8 +67,8 @@ public class DSDownloadRxJavaManager {
             public void onComplete() {
                 // Updates UI with data
                 // called when request is retried
-                mDownloadDataType.getImDownloadDataType().onComplete();
-                imProvider.markAsCancel(mDownloadDataType);
+                mDownloadDataType.getImIDSDownloadDataType().onComplete();
+                imIDSProvider.markAsCancel(mDownloadDataType);
 
             }
         });

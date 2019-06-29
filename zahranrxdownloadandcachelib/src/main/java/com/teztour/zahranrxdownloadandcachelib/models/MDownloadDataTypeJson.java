@@ -1,7 +1,7 @@
 package com.teztour.zahranrxdownloadandcachelib.models;
 
 import com.google.gson.Gson;
-import com.teztour.zahranrxdownloadandcachelib.interfaces.IMDownloadDataType;
+import com.teztour.zahranrxdownloadandcachelib.interfaces.IDSDownloadDataType;
 
 import java.lang.reflect.Type;
 
@@ -11,13 +11,13 @@ import java.lang.reflect.Type;
  */
 public class MDownloadDataTypeJson extends MDownloadDataType {
 
-    public MDownloadDataTypeJson(String url, IMDownloadDataType imDownloadDataType) {
-        super(url, MDataType.JSON, imDownloadDataType);
+    public MDownloadDataTypeJson(String url, IDSDownloadDataType imIDSDownloadDataType) {
+        super(url, MDataType.JSON, imIDSDownloadDataType);
     }
 
     @Override
-    public MDownloadDataType getCopyOfMe(IMDownloadDataType imDownloadDataType) {
-        MDownloadDataType mDownloadDataType = new MDownloadDataTypeJson(this.getUrl(), imDownloadDataType);
+    public MDownloadDataType getCopyOfMe(IDSDownloadDataType imIDSDownloadDataType) {
+        MDownloadDataType mDownloadDataType = new MDownloadDataTypeJson(this.getUrl(), imIDSDownloadDataType);
         return mDownloadDataType;
     }
 

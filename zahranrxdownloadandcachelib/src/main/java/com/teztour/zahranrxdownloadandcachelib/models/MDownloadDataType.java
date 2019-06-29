@@ -1,6 +1,7 @@
 package com.teztour.zahranrxdownloadandcachelib.models;
 
-import com.teztour.zahranrxdownloadandcachelib.interfaces.IMDownloadDataType;
+import com.teztour.zahranrxdownloadandcachelib.ApiUrls;
+import com.teztour.zahranrxdownloadandcachelib.interfaces.IDSDownloadDataType;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -13,17 +14,18 @@ public abstract class MDownloadDataType {
     private String url;
     private byte[] data;
     private MDataType mDataType;
-    private IMDownloadDataType imDownloadDataType;
+    private IDSDownloadDataType imIDSDownloadDataType;
 
     private String keyMD5;
 
     // User For Just For Test
     public String comeFrom = "Net";
 
-    protected MDownloadDataType(String url, MDataType mDataType, IMDownloadDataType imDownloadDataType){
+    protected MDownloadDataType(String url, MDataType mDataType, IDSDownloadDataType imIDSDownloadDataType){
         this.url = url;
+        ApiUrls.BASE_URL=url;
         this.mDataType = mDataType;
-        this.imDownloadDataType = imDownloadDataType;
+        this.imIDSDownloadDataType = imIDSDownloadDataType;
         this.keyMD5 = md5(this.url);
     }
 
@@ -43,15 +45,15 @@ public abstract class MDownloadDataType {
         return mDataType;
     }
 
-    public IMDownloadDataType getImDownloadDataType() {
-        return imDownloadDataType;
+    public IDSDownloadDataType getImIDSDownloadDataType() {
+        return imIDSDownloadDataType;
     }
 
     public void setData(byte[] data) {
         this.data = data;
     }
 
-    public abstract MDownloadDataType getCopyOfMe(IMDownloadDataType imDownloadDataType);
+    public abstract MDownloadDataType getCopyOfMe(IDSDownloadDataType imIDSDownloadDataType);
 
 
     public static final String md5(final String s) {

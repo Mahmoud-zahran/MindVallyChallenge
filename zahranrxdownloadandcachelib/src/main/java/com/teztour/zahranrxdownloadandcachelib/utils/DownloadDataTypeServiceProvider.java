@@ -3,8 +3,8 @@ package com.teztour.zahranrxdownloadandcachelib.utils;
 import android.util.Log;
 
 import com.teztour.zahranrxdownloadandcachelib.ApiService;
-import com.teztour.zahranrxdownloadandcachelib.interfaces.IMDownloadDataType;
-import com.teztour.zahranrxdownloadandcachelib.interfaces.IMProvider;
+import com.teztour.zahranrxdownloadandcachelib.interfaces.IDSDownloadDataType;
+import com.teztour.zahranrxdownloadandcachelib.interfaces.IDSProvider;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
 
 import java.util.HashMap;
@@ -17,19 +17,19 @@ import java.util.LinkedList;
  * This class to manage the requests that go to DSDownloadRxJavaManager
  * If two or more request for the same url this class will manage them
  */
-public class MProviderMDownloadDataType {
-    private static MProviderMDownloadDataType instance;
+public class DownloadDataTypeServiceProvider {
+    private static DownloadDataTypeServiceProvider instance;
     private HashMap<String, LinkedList<MDownloadDataType>> allRequestsByKey = new HashMap<>();
     private HashMap<String, ApiService> allRequestsClient = new HashMap<>();
     private DSCachingManager mDSCachingManager;
 
-    private MProviderMDownloadDataType() {
+    private DownloadDataTypeServiceProvider() {
         mDSCachingManager = DSCachingManager.getInstance();
     }
 
-    public static MProviderMDownloadDataType getInstance() {
+    public static DownloadDataTypeServiceProvider getInstance() {
         if (instance == null) {
-            instance = new MProviderMDownloadDataType();
+            instance = new DownloadDataTypeServiceProvider();
         }
         return instance;
     }
@@ -41,9 +41,9 @@ public class MProviderMDownloadDataType {
         if (mDownloadDataTypeFromCache != null) {
             mDownloadDataTypeFromCache.comeFrom = "Cache";
             // call interface
-            IMDownloadDataType imDownloadDataType = mDownloadDataType.getImDownloadDataType();
-            imDownloadDataType.onSubscribe(mDownloadDataTypeFromCache);
-            imDownloadDataType.onNext(mDownloadDataTypeFromCache);
+            IDSDownloadDataType imIDSDownloadDataType = mDownloadDataType.getImIDSDownloadDataType();
+            imIDSDownloadDataType.onSubscribe(mDownloadDataTypeFromCache);
+            imIDSDownloadDataType.onNext(mDownloadDataTypeFromCache);
             return;
         }
 
@@ -64,12 +64,12 @@ public class MProviderMDownloadDataType {
         }
 
         // Create new MDownloadDataType by clone it from the parameter
-        MDownloadDataType newMDownloadDataType = mDownloadDataType.getCopyOfMe(new IMDownloadDataType() {
+        MDownloadDataType newMDownloadDataType = mDownloadDataType.getCopyOfMe(new IDSDownloadDataType() {
             @Override
             public void onSubscribe(MDownloadDataType mDownloadDataType) {
                 for (MDownloadDataType m : allRequestsByKey.get(mDownloadDataType.getKeyMD5())) {
                     m.setData(mDownloadDataType.getData());
-                    m.getImDownloadDataType().onSubscribe(m);
+                    m.getImIDSDownloadDataType().onSubscribe(m);
                 }
             }
 
@@ -78,7 +78,7 @@ public class MProviderMDownloadDataType {
                 for (MDownloadDataType m : allRequestsByKey.get(mDownloadDataType.getKeyMD5())) {
                     m.setData(mDownloadDataType.getData());
                     Log.e("HERRRR", m.comeFrom);
-                    m.getImDownloadDataType().onNext(m);
+                    m.getImIDSDownloadDataType().onNext(m);
                 }
                 allRequestsByKey.remove(mDownloadDataType.getKeyMD5());
             }
@@ -87,7 +87,7 @@ public class MProviderMDownloadDataType {
             public void onError(MDownloadDataType mDownloadDataType, Throwable e) {
                 for (MDownloadDataType m : allRequestsByKey.get(mDownloadDataType.getKeyMD5())) {
                     m.setData(mDownloadDataType.getData());
-                    m.getImDownloadDataType().onError(m, e);
+                    m.getImIDSDownloadDataType().onError(m, e);
                 }
                 allRequestsByKey.remove(mDownloadDataType.getKeyMD5());
             }
@@ -96,14 +96,14 @@ public class MProviderMDownloadDataType {
             public void onComplete() {
                 for (MDownloadDataType m : allRequestsByKey.get(mDownloadDataType.getKeyMD5())) {
                     m.setData(mDownloadDataType.getData());
-                    m.getImDownloadDataType().onComplete();
+                    m.getImIDSDownloadDataType().onComplete();
             }
             }
         });
 
         // Get from download manager
         final DSDownloadRxJavaManager mDSDownloadRxJavaManager = new DSDownloadRxJavaManager();
-       ApiService client= mDSDownloadRxJavaManager.getService(newMDownloadDataType, new IMProvider() {
+        ApiService client= mDSDownloadRxJavaManager.getService(newMDownloadDataType, new IDSProvider() {
            @Override
            public void markAsDone(MDownloadDataType mDownloadDataType) {
                // put in the cache when mark as done
@@ -130,7 +130,7 @@ public class MProviderMDownloadDataType {
         if(allRequestsByKey.containsKey(mDownloadDataType.getKeyMD5())) {
             allRequestsByKey.get(mDownloadDataType.getKeyMD5()).remove(mDownloadDataType);
             mDownloadDataType.comeFrom = "Canceled";
-            mDownloadDataType.getImDownloadDataType().onError(mDownloadDataType, new Exception("canceled"));
+            mDownloadDataType.getImIDSDownloadDataType().onError(mDownloadDataType, new Exception("canceled"));
         }
     }
 
