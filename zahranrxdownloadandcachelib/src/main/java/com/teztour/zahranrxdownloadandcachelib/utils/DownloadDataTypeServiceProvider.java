@@ -3,8 +3,8 @@ package com.teztour.zahranrxdownloadandcachelib.utils;
 import android.util.Log;
 
 import com.teztour.zahranrxdownloadandcachelib.ApiService;
-import com.teztour.zahranrxdownloadandcachelib.interfaces.IDSDownloadDataType;
-import com.teztour.zahranrxdownloadandcachelib.interfaces.IDSProvider;
+import com.teztour.zahranrxdownloadandcachelib.callbackInterfaces.IDSDownloadDataType;
+import com.teztour.zahranrxdownloadandcachelib.callbackInterfaces.IDSProvider;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
 
 import java.util.HashMap;

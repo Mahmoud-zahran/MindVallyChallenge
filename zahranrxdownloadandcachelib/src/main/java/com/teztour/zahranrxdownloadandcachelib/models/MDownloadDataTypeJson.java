@@ -1,7 +1,7 @@
 package com.teztour.zahranrxdownloadandcachelib.models;
 
 import com.google.gson.Gson;
-import com.teztour.zahranrxdownloadandcachelib.interfaces.IDSDownloadDataType;
+import com.teztour.zahranrxdownloadandcachelib.callbackInterfaces.IDSDownloadDataType;
 
 import java.lang.reflect.Type;
 

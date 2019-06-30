@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.teztour.zahranrxdownloadandcachelib.interfaces.IDSDownloadDataType;
+import com.teztour.zahranrxdownloadandcachelib.callbackInterfaces.IDSDownloadDataType;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataTypeImage;
 import com.teztour.zahranrxdownloadandcachelib.utils.DownloadDataTypeServiceProvider;

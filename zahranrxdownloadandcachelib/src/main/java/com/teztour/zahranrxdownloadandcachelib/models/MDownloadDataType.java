@@ -1,7 +1,7 @@
 package com.teztour.zahranrxdownloadandcachelib.models;
 
 import com.teztour.zahranrxdownloadandcachelib.ApiUrls;
-import com.teztour.zahranrxdownloadandcachelib.interfaces.IDSDownloadDataType;
+import com.teztour.zahranrxdownloadandcachelib.callbackInterfaces.IDSDownloadDataType;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

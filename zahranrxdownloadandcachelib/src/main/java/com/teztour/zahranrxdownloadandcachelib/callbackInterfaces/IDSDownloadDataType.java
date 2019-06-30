@@ -1,4 +1,4 @@
-package com.teztour.zahranrxdownloadandcachelib.interfaces;
+package com.teztour.zahranrxdownloadandcachelib.callbackInterfaces;
 
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
 

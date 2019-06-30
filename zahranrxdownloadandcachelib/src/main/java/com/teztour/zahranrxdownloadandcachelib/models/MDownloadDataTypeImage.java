@@ -3,7 +3,7 @@ package com.teztour.zahranrxdownloadandcachelib.models;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.teztour.zahranrxdownloadandcachelib.interfaces.IDSDownloadDataType;
+import com.teztour.zahranrxdownloadandcachelib.callbackInterfaces.IDSDownloadDataType;
 
 /**
  * Created by Mahmoud Zahran on 26/06/2019.

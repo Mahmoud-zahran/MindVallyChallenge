@@ -2,7 +2,7 @@ package com.teztour.zahranrxdownloadandcachelib.utils;
 
 
 import com.teztour.zahranrxdownloadandcachelib.ApiService;
-import com.teztour.zahranrxdownloadandcachelib.interfaces.IDSProvider;
+import com.teztour.zahranrxdownloadandcachelib.callbackInterfaces.IDSProvider;
 import com.teztour.zahranrxdownloadandcachelib.models.MDataType;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
 import com.teztour.zahranrxdownloadandcachelib.module.RetrofitSingleton;

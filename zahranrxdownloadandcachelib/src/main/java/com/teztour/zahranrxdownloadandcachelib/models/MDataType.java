@@ -6,5 +6,6 @@ package com.teztour.zahranrxdownloadandcachelib.models;
  */
 public enum MDataType {
     IMAGE,
-    JSON
+    JSON,
+    XML
 }
