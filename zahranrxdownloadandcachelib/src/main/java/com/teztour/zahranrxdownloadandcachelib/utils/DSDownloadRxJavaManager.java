@@ -7,6 +7,8 @@ import com.teztour.zahranrxdownloadandcachelib.models.MDataType;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
 import com.teztour.zahranrxdownloadandcachelib.module.RetrofitSingleton;
 
+import java.io.UnsupportedEncodingException;
+
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -47,7 +49,11 @@ public class DSDownloadRxJavaManager {
             public void onNext(String mData) {
                 // called when response HTTP status is "200 OK"
                // byte[] mbData=mData.getBytes();
-                mDownloadDataType.setData(mData.getBytes());
+                try {
+                    mDownloadDataType.setData(mData.getBytes("US-ASCII"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 mDownloadDataType.getImIDSDownloadDataType().onNext(mDownloadDataType);
 
                 // This call for provider to manage it

@@ -13,7 +13,9 @@ import com.teztour.zahranrxdownloadandcachelib.utils.DownloadDataTypeServiceProv
 public class MainActivity extends AppCompatActivity {
     private DownloadDataTypeServiceProvider mProvider;
     ImageView imageView;
-    String url = "https://images.unsplash.com/photo-1464519586905-a8c004d307cc/";/*"http://cronws.tez-tour.com/rest/getAppVersions/iguideEG/";*"http://pastebin.com/raw/wgkJgazE/";*/
+    String url = "https://images.unsplash.com/placeholder-avatars/extra-large.jpg?ixlib=rb-0.3.5/u0026q=80/u0026fm=" +
+            "jpg/u0026crop=faces/u0026fit=crop/u0026h=32/u0026w=32/u0026s=46caf91cf1f90b8b5ab6621512f102a8/";
+          //  "/*http://cronws.tez-tour.com/rest/getAppVersions/iguideEG/";"http://pastebin.com/raw/wgkJgazE/";*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
