@@ -28,7 +28,7 @@ public class DSCachingManager {
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
 
         // Use 1/8th of the available memory for this memory cache.
-        maxCacheSize =   maxMemory / 8; // 4 * 1024 * 1024; // 4MiB
+        maxCacheSize =   maxMemory / 8; // 4 * 1024 * 1024; // 4MiBء
         mDownloadDataTypeCache = new LruCache<>(maxCacheSize);
     }
    //provide instance

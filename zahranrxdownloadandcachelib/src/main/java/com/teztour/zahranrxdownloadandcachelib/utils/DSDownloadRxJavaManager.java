@@ -25,7 +25,9 @@ public class DSDownloadRxJavaManager {
     public ApiService getService(final MDownloadDataType mDownloadDataType, final IDSProvider imIDSProvider) {
         Retrofit retrofit = RetrofitSingleton.getInstanceJson();
         if (mDownloadDataType.getmDataType()== MDataType.JSON){
-             retrofit  = RetrofitSingleton.getInstanceJson();
+            retrofit =RetrofitSingleton.getInstanceString();
+
+          //    retrofit  = RetrofitSingleton.getInstanceJson();
         }else if (mDownloadDataType.getmDataType()==MDataType.IMAGE){
             retrofit =RetrofitSingleton.getInstanceString();
         }
@@ -34,7 +36,7 @@ public class DSDownloadRxJavaManager {
         service.getApiData()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Observer<MDownloadDataType>() {
+        .subscribe(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
                 // called before request is started
@@ -42,9 +44,10 @@ public class DSDownloadRxJavaManager {
             }
 
             @Override
-            public void onNext(MDownloadDataType mpDownloadDataType) {
+            public void onNext(String mData) {
                 // called when response HTTP status is "200 OK"
-                mDownloadDataType.setData(mpDownloadDataType.getData());
+               // byte[] mbData=mData.getBytes();
+                mDownloadDataType.setData(mData.getBytes());
                 mDownloadDataType.getImIDSDownloadDataType().onNext(mDownloadDataType);
 
                 // This call for provider to manage it

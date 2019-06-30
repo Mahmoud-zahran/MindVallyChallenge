@@ -1,7 +1,5 @@
 package com.teztour.zahranrxdownloadandcachelib;
 
-import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 /**
@@ -9,5 +7,5 @@ import retrofit2.http.GET;
  */
 public interface ApiService {
     @GET(".")
-    Observable<MDownloadDataType> getApiData();
+    Observable<String> getApiData();
 }
