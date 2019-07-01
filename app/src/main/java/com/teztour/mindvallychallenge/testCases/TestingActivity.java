@@ -92,12 +92,12 @@ public class TestingActivity extends AppCompatActivity {
             countCanceled = 0;
             countFailure = 0;
             runTestCode();
-//            mHandler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    runTestCode();
-//                }
-//            }, 5000);
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    runTestCode();
+                }
+            }, 1000);
 
             return true;
         } else if (id == R.id.action_clearCashe) {
@@ -200,8 +200,8 @@ public class TestingActivity extends AppCompatActivity {
             if (mDownloadDataType.getmDataType() == MDataType.JSON) {
                 Type type = new TypeToken<IPClass>() {
                 }.getType();
-                IPClass pp = (IPClass) ((MDownloadDataTypeJson) mDownloadDataType).getJson(type);
-                logInEditText("IP: " + pp.getIp());
+//                IPClass pp = (IPClass) ((MDownloadDataTypeJson) mDownloadDataType).getJson(type);
+//                logInEditText("IP: " + pp.getIp());
             }
 
             logInEditText("********************");
