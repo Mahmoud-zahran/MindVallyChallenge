@@ -84,7 +84,7 @@ public class MainActivityPresenterImpl implements MainActivityContract.Presenter
             @Override
             public void onComplete() {
                 Log.d("MainActivity", "onComplete ");
-                mView.hideProgress();
+           //     mView.hideProgress();
             }
 
         });
