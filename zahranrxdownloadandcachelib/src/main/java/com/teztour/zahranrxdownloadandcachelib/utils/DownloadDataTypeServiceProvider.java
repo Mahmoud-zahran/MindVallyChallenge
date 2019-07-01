@@ -44,6 +44,8 @@ public class DownloadDataTypeServiceProvider {
             IDSDownloadDataType imIDSDownloadDataType = mDownloadDataType.getImIDSDownloadDataType();
             imIDSDownloadDataType.onSubscribe(mDownloadDataTypeFromCache);
             imIDSDownloadDataType.onNext(mDownloadDataTypeFromCache);
+            imIDSDownloadDataType.onComplete();
+
             return;
         }
 

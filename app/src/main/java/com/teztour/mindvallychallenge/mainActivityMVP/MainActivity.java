@@ -1,6 +1,7 @@
 package com.teztour.mindvallychallenge.mainActivityMVP;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -8,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.teztour.mindvallychallenge.R;
@@ -21,6 +25,7 @@ import com.teztour.mindvallychallenge.daggerNeededFiles.qualifer.ActivityContext
 import com.teztour.mindvallychallenge.daggerNeededFiles.qualifer.ApplicationContext;
 import com.teztour.mindvallychallenge.entity.Response;
 import com.teztour.mindvallychallenge.root.MyApplication;
+import com.teztour.mindvallychallenge.testCases.TestingActivity;
 import com.teztour.mindvallychallenge.util.CustomProgressDialog;
 
 import java.util.ArrayList;
@@ -124,7 +129,26 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 //        mProvider.getRequest(mDataTypeImageCancel);
 
         }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        switch (item.getItemId()) {
+            case R.id.menu_SetVehicle:
+                Intent intent = new Intent(MainActivity.this, TestingActivity.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
     @Override
     public void showError(String call, String statusMessage) {
         if (call.equals("network error")) {

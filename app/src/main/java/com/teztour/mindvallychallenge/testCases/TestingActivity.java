@@ -3,6 +3,9 @@ package com.teztour.mindvallychallenge.testCases;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -64,7 +67,12 @@ public class TestingActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_items, menu);
+        return true;
+    }
 
 
     @Override
@@ -83,12 +91,13 @@ public class TestingActivity extends AppCompatActivity {
             countJsonComeFromCashe = 0;
             countCanceled = 0;
             countFailure = 0;
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    runTestCode();
-                }
-            }, 1000);
+            runTestCode();
+//            mHandler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    runTestCode();
+//                }
+//            }, 5000);
 
             return true;
         } else if (id == R.id.action_clearCashe) {
@@ -112,10 +121,15 @@ public class TestingActivity extends AppCompatActivity {
         mProvider.cancelRequest(mDataTypeImageCancel);
         i = 0;
         // Get JSON
-        for (String str : urlsJsonArray) {
-            MDownloadDataType mDataTypeJson = new MDownloadDataTypeJson(str, new InterfaceForDataType("Json-" + i++));
-            mProvider.getRequest(mDataTypeJson);
+        try {
+            for (String str : urlsJsonArray) {
+                MDownloadDataType mDataTypeJson = new MDownloadDataTypeJson(str, new InterfaceForDataType("Json-" + i++));
+                mProvider.getRequest(mDataTypeJson);
+            }
+        }catch (Exception e){
+            Log.e("Test", "runTestCode: ", e);
         }
+
     }
 
     private void logInEditText(final String msg) {

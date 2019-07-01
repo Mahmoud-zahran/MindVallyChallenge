@@ -50,17 +50,13 @@ public class DSDownloadRxJavaManager {
             @Override
             public void onNext(ResponseBody mData) {
                 // called when response HTTP status is "200 OK"
-               // byte[] mbData=mData.getBytes();
-              //  try {
 
                 try {
                     mDownloadDataType.setData(mData.source().readByteArray());/*.getBytes("US-ASCII")*/
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-//                } catch (UnsupportedEncodingException e) {
-//                    e.printStackTrace();
-//                }
+
                 mDownloadDataType.getImIDSDownloadDataType().onNext(mDownloadDataType);
 
                 // This call for provider to manage it
