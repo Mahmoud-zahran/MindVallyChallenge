@@ -3,4 +3,73 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="background">#fa228fe4</color>
+
+    <color name="buttonColor">#dba604</color>
+
+    <color name="buttonPressedColor">#ffbb8604</color>
+
+    <color name="buttonBorderColor">#171717</color>
+
+    <color name="book_loading_background">#ffffff</color>
+    <color name="book_loading_book">#ff33b5e5</color>
+    <color name="book_loading_page">#ffffff</color>
+    <color name="editTextBackgroundColor">#FFFFFF</color>
+    <color name="list_item_pressed_background_color">#dba604</color>
+    <color name="list_item_pressed_color">#000000</color>
+    <color name="list_item_color">#FFFFFF</color>
+    <color name="backGroundColor">#C0E8FB</color>
+    <color name="lightBlueColor">#fa0098ff</color>
+
+    <color name="darkGreenColor">#ff006900</color>
+
+    <color name="order_hotel_stay_background">#ff097f12</color>
+    <color name="order_hotel_stay_details_background">#aa097f12</color>
+
+    <color name="order_fly_background">#ff083e7f</color>
+    <color name="order_fly_details_background">#aa083e7f</color>
+
+    <color name="order_transfer_background">#ff7f1b58</color>
+    <color name="order_transfer_details_background">#aa7f1b58</color>
+
+    <color name="order_comment_background">#ff545454</color>
+    <color name="order_comment_details_background">#aa545454</color>
+
+    <color name="order_text_color">#ffffff</color>
+    <color name="order_inactive_text_color">#9D9FA2</color>
+
+
+    <color name="custom">#8c000406</color>
+    <color name="card_bg">#fff</color>
+    <color name="bg">#8b8b8b</color>
+    <color name="itemColor">#f2e4f4</color>
+    <color name="DarkBG">#202020</color>
+    <color name="white">#ffffff</color>
+
+
+
+    <color name="StarActive">#ffffff</color>
+    <color name="StarNormal">#d32f2f</color>
+
+    <color name="TextColorPrimaryDark">#6D6D6D</color>
+    <color name="TextColorPrimary">#B5B8C1</color>
+    <color name="SecondaryText">#C3C5CC</color>
+    <color name="Text">#ffffff</color>
+    <color name="DividerColor">#ECECEC</color>
+    <color name="lightColor">#e0e0e0</color>
+    <color name="lightBG">#F8F8F8</color>
+    <color name="TransparentColor">#90000000</color>
+    <color name="cellTxtColor">#E3E5E2</color>
+
+
+    <color name="Splitter">#9e9e9e</color>
+
+
+    <color name="CheckOut">#01d21d</color>
+    <color name="AddItem">#cccccc</color>
+    <color name="Black">#000000</color>
+    <color name="Red">#ff0000</color>
+    <color name="Yellow">#000000</color>
+    <color name="gray">#828092</color>
+    <color name="blue">#0000FF</color>
 </resources>

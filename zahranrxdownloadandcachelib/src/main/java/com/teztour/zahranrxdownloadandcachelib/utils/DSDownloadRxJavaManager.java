@@ -2,6 +2,7 @@ package com.teztour.zahranrxdownloadandcachelib.utils;
 
 
 import com.teztour.zahranrxdownloadandcachelib.ApiService;
+import com.teztour.zahranrxdownloadandcachelib.ApiUrls;
 import com.teztour.zahranrxdownloadandcachelib.callbackInterfaces.IDSProvider;
 import com.teztour.zahranrxdownloadandcachelib.models.MDataType;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
@@ -36,7 +37,7 @@ public class DSDownloadRxJavaManager {
         }
 
         ApiService service = retrofit.create(ApiService.class);
-        service.getApiData()
+        service.getApiData(ApiUrls.BASE_URL+ApiUrls.API_FEEDS_URL)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Observer<ResponseBody>() {

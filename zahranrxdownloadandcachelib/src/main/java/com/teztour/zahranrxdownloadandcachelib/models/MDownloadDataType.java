@@ -23,8 +23,10 @@ public abstract class MDownloadDataType {
 
     protected MDownloadDataType(String url, MDataType mDataType, IDSDownloadDataType imIDSDownloadDataType){
         this.url = url;
-        ApiUrls.BASE_URL="https://images.unsplash.com/";
+        //url.trim().split("/")[0]
+        ApiUrls.BASE_URL=url.trim().split("/")[0]+"//"+url.trim().split("/")[1]+url.trim().split("/")[2]+"/";//"https://images.unsplash.com/";
                 //url;
+        ApiUrls.API_FEEDS_URL=url.substring(ApiUrls.BASE_URL.length());
         this.mDataType = mDataType;
         this.imIDSDownloadDataType = imIDSDownloadDataType;
         this.keyMD5 = md5(this.url);

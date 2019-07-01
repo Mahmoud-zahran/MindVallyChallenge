@@ -2,27 +2,44 @@ package com.teztour.mindvallychallenge;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
+import com.teztour.mindvallychallenge.adapter.ImageListAdapter;
+import com.teztour.mindvallychallenge.entity.Response;
 import com.teztour.zahranrxdownloadandcachelib.callbackInterfaces.IDSDownloadDataType;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
-import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataTypeImage;
+import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataTypeJson;
 import com.teztour.zahranrxdownloadandcachelib.utils.DownloadDataTypeServiceProvider;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class MainActivity extends AppCompatActivity {
+
     private DownloadDataTypeServiceProvider mProvider;
+    private ArrayList<Response> users;
     ImageView imageView;
-    String url = "https://images.unsplash.com/placeholder-avatars/extra-large.jpg?ixlib=rb-0.3.5/u0026q=80/u0026fm=" +
-            "jpg/u0026crop=faces/u0026fit=crop/u0026h=32/u0026w=32/u0026s=46caf91cf1f90b8b5ab6621512f102a8/";
-          //  "/*http://cronws.tez-tour.com/rest/getAppVersions/iguideEG/";"http://pastebin.com/raw/wgkJgazE/";*/
+    String url = "http://pastebin.com/raw/wgkJgazE";
+    RecyclerView voucherFlightsList_RecView;
+    ImageListAdapter Adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        imageView=findViewById(R.id.full_image_view);
+        voucherFlightsList_RecView = (RecyclerView) findViewById(R.id.DataShowActivity_recycler_view);
+        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(this);
+
+        voucherFlightsList_RecView.setLayoutManager(LayoutManager);
+        users = new ArrayList<>();
+
         mProvider = DownloadDataTypeServiceProvider.getInstance();
-        MDownloadDataType mDataTypeImageCancel = new MDownloadDataTypeImage(url , new IDSDownloadDataType() {
+        Response mResponse;
+        MDownloadDataType mDataTypeImageCancel = new MDownloadDataTypeJson(url , new IDSDownloadDataType() {
             @Override
             public void onSubscribe(MDownloadDataType mDownloadDataType) {
                 Log.d("MainActivity", "onSubscribe: ");
@@ -31,8 +48,20 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNext(MDownloadDataType mDownloadDataType) {
-                Log.d("MainActivity", "onNext: "+mDownloadDataType.getData());
-                imageView.setImageBitmap(((MDownloadDataTypeImage) mDownloadDataType).getImageBitmap());
+                Log.d("MainActivity", "onNext: "+((MDownloadDataTypeJson)mDownloadDataType).getJsonText());
+                String response = new String(mDownloadDataType.getData(), StandardCharsets.UTF_8);
+                Response[] detailsResponses = new Gson().fromJson(response, Response[].class);
+
+                if (detailsResponses.length != 0)
+                {
+                    users.clear();
+                    Collections.addAll(users, detailsResponses);
+                }
+
+                Adapter = new ImageListAdapter(getApplicationContext(), users);
+
+                voucherFlightsList_RecView.setAdapter(Adapter);
+          //      imageView.setImageBitmap(((MDownloadDataTypeImage) mDownloadDataType).getImageBitmap());
 
             }
 
@@ -41,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.d("MainActivity", "onError: "+e.getMessage());
 
-                    imageView.setImageResource(R.drawable.ic_launcher_background);
+           //         imageView.setImageResource(R.drawable.ic_launcher_background);
 
             }
 

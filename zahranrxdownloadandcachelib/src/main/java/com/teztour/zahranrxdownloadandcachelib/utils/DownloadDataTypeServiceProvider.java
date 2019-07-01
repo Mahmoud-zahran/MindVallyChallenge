@@ -95,9 +95,10 @@ public class DownloadDataTypeServiceProvider {
             @Override
             public void onComplete() {
                 if (!allRequestsByKey.isEmpty())
-                for (MDownloadDataType m : allRequestsByKey.get(mDownloadDataType.getKeyMD5())) {
-                    m.setData(mDownloadDataType.getData());
-                    m.getImIDSDownloadDataType().onComplete();
+                    if (!allRequestsByKey.get(mDownloadDataType.getKeyMD5()).isEmpty())
+                        for (MDownloadDataType m : allRequestsByKey.get(mDownloadDataType.getKeyMD5())) {
+                            m.setData(mDownloadDataType.getData());
+                            m.getImIDSDownloadDataType().onComplete();
             }
             }
         });

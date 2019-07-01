@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Card_DataShowActivityCard"
+    android:layout_width="wrap_content"
+    android:layout_height="385dp"
+    android:layout_margin="1dp"
+    android:clickable="true"
+    android:foreground="?selectableItemBackground"
+    card_view:cardBackgroundColor="#fff"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/L_DataShowActivityBannerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="325dp"
+            android:gravity="center"
+            tools:ignore="RtlCompat">
+
+            <ImageView
+                android:id="@+id/Img_DataShowActivityBanner"
+                android:layout_width="match_parent"
+                android:layout_height="325dp"
+                tools:src="@color/background" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/L_DataShowActivityShadow"
+            android:layout_width="match_parent"
+            android:layout_height="385dp"
+            android:background="#90000000"
+            android:orientation="horizontal" />
+
+        <LinearLayout
+            android:id="@+id/L_ImageDetails"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:foregroundGravity="bottom"
+            android:gravity="center"
+            android:background="@color/white"
+            android:layout_below="@+id/L_DataShowActivityBannerContainer"
+            tools:ignore="RtlCompat"
+            >
+
+            <TextView
+                android:id="@+id/Txt_DataShowActivity_UserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="workDate: May 11, 2019 12:00:00 AM"
+                android:textColor="@color/bg"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
