@@ -7,12 +7,13 @@ import com.teztour.zahranrxdownloadandcachelib.models.MDataType;
 import com.teztour.zahranrxdownloadandcachelib.models.MDownloadDataType;
 import com.teztour.zahranrxdownloadandcachelib.module.RetrofitSingleton;
 
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 /**
@@ -38,7 +39,7 @@ public class DSDownloadRxJavaManager {
         service.getApiData()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Observer<String>() {
+        .subscribe(new Observer<ResponseBody>() {
             @Override
             public void onSubscribe(Disposable d) {
                 // called before request is started
@@ -46,14 +47,19 @@ public class DSDownloadRxJavaManager {
             }
 
             @Override
-            public void onNext(String mData) {
+            public void onNext(ResponseBody mData) {
                 // called when response HTTP status is "200 OK"
                // byte[] mbData=mData.getBytes();
+              //  try {
+
                 try {
-                    mDownloadDataType.setData(mData.getBytes("US-ASCII"));
-                } catch (UnsupportedEncodingException e) {
+                    mDownloadDataType.setData(mData.source().readByteArray());/*.getBytes("US-ASCII")*/
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
                 mDownloadDataType.getImIDSDownloadDataType().onNext(mDownloadDataType);
 
                 // This call for provider to manage it
