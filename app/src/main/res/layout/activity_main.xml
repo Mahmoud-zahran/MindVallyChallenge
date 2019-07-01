@@ -7,7 +7,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#2c76ae"
+        android:textColor="@color/white"
         android:orientation="vertical"
         android:weightSum="4"
         tools:context=".activity.DataShowActivity">
@@ -23,7 +23,7 @@
             android:paddingLeft="5dp"
             android:paddingTop="10dp"
             android:text="Users:"
-            android:textColor="@color/white"
+            android:textColor="@color/buttonBorderColor"
             android:textSize="16sp"
             android:textStyle="bold" />
 

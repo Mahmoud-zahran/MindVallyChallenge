@@ -35,7 +35,7 @@
             android:id="@+id/L_DataShowActivityShadow"
             android:layout_width="match_parent"
             android:layout_height="385dp"
-            android:background="#90000000"
+
             android:orientation="horizontal" />
 
         <LinearLayout

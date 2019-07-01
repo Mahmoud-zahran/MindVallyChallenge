@@ -30,31 +30,31 @@ import java.util.List;
 
 public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.ViewHolder> implements Filterable {
 
-    List<Response> voucherTransfers;
+    List<Response> responseList;
     android.content.Context Context;
     boolean[] animationStates;
-    public static int RestaurantPosition;
+   // public static int itemPosition;
     private DownloadDataTypeServiceProvider mProvider;
-    List<Response> VoucherTransfersList =null;
-    List<Response> filteredVoucherTransfersList = null;
-    ImageListAdapter.VoucherTransfersFilter VoucherTransfersFilter;
+    List<Response> imageResponseList =null;
+    List<Response> filteredImageResponseList = null;
+    ItemFilter mItemFilter;
     public static int VisibleOnce = 0;
 
 
     @Override
     public Filter getFilter() {
-        if(VoucherTransfersFilter == null)
-            VoucherTransfersFilter = new ImageListAdapter.VoucherTransfersFilter(this, VoucherTransfersList);
-        return VoucherTransfersFilter;
+        if(mItemFilter == null)
+            mItemFilter = new ItemFilter(this, imageResponseList);
+        return mItemFilter;
     }
 
     //Constractor
-    public ImageListAdapter(android.content.Context context, List<Response> VoucherTransfers) {
+    public ImageListAdapter(android.content.Context context, List<Response> responseList) {
         Context = context;
-        voucherTransfers = VoucherTransfers;
-        this.VoucherTransfersList =VoucherTransfers;
-        this.filteredVoucherTransfersList = new ArrayList<>();
-        animationStates = new boolean[VoucherTransfers.size()];
+        this.responseList = responseList;
+        this.imageResponseList = responseList;
+        this.filteredImageResponseList = new ArrayList<>();
+        animationStates = new boolean[responseList.size()];
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -133,7 +133,7 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
     public void onBindViewHolder(final ImageListAdapter.ViewHolder Holder, int position) {
 
 
-        Response response = voucherTransfers.get(position);
+        Response response = responseList.get(position);
         mProvider = DownloadDataTypeServiceProvider.getInstance();
         MDownloadDataType mDataTypeImageCancel = new MDownloadDataTypeImage(response.getUser().getProfile_image().getLarge() , new IDSDownloadDataType() {
             @Override
@@ -170,7 +170,7 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
         });
         mProvider.getRequest(mDataTypeImageCancel);
 
-        Holder.txt_RideId.setText(response.getUser().getUsername()!=null?response.getUser().getUsername():"user name unknown ");
+        Holder.txt_RideId.setText(response.getUser().getName()!=null?response.getUser().getName():"User Name unknown ");
 
 
 
@@ -197,9 +197,9 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
 
 
     public int getItemCount() {
-        return voucherTransfers.size();
+        return responseList.size();
     }
-    private static class VoucherTransfersFilter extends Filter {
+    private static class ItemFilter extends Filter {
 
         private final ImageListAdapter adapter;
 
@@ -207,7 +207,7 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
 
         private final List<Response> filteredList;
 
-        private VoucherTransfersFilter(ImageListAdapter adapter, List<Response> originalList) {
+        private ItemFilter(ImageListAdapter adapter, List<Response> originalList) {
             super();
             this.adapter = adapter;
             this.originalList = new ArrayList<>(originalList);
@@ -241,10 +241,10 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.View
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            adapter.filteredVoucherTransfersList.clear();
-            adapter.filteredVoucherTransfersList.addAll((ArrayList<Response>) results.values);
-            adapter.voucherTransfers.clear();
-            adapter.voucherTransfers.addAll(filteredList);
+            adapter.filteredImageResponseList.clear();
+            adapter.filteredImageResponseList.addAll((ArrayList<Response>) results.values);
+            adapter.responseList.clear();
+            adapter.responseList.addAll(filteredList);
             adapter.notifyDataSetChanged();
         }
     }
