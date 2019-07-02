@@ -49,3 +49,8 @@ Requirements
 https://github.com/Mahmoud-zahran/MindVallyChallenge/blob/master/Screenshot_3.png
 
 https://github.com/Mahmoud-zahran/MindVallyChallenge/blob/master/image%20(10).png
+
+# References
+- https://developer.android.com/studio/projects/android-library
+- https://developer.android.com/topic/performance/graphics/cache-bitmap
+- https://www.journaldev.com/20654/android-mvp-dagger2-retrofit-rxjava doesn't use Retrofit module because I did network on lib
