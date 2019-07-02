@@ -44,5 +44,7 @@ Requirements
 - We are looking to see how you use Dependency Injection and Rx Java.
 - Writing test cases is a must.
 
-#Images for clarification use
+# Images for clarification use
+
 https://github.com/Mahmoud-zahran/MindVallyChallenge/blob/master/Screenshot_3.png
+https://github.com/Mahmoud-zahran/MindVallyChallenge/blob/master/image%20(10).png
