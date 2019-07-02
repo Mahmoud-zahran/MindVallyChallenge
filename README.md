@@ -44,3 +44,5 @@ Requirements
 - We are looking to see how you use Dependency Injection and Rx Java.
 - Writing test cases is a must.
 
+#Images for clarification use
+
