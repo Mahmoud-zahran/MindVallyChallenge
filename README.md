@@ -46,9 +46,9 @@ Requirements
 
 # Images for clarification use
 
-https://github.com/Mahmoud-zahran/MindVallyChallenge/blob/master/Screenshot_3.png
+![alt text](https://github.com/Mahmoud-zahran/MindVallyChallenge/blob/master/Screenshot_3.png)
 
-https://github.com/Mahmoud-zahran/MindVallyChallenge/blob/master/image%20(10).png
+![alt text](https://github.com/Mahmoud-zahran/MindVallyChallenge/blob/master/image%20(10).png)
 
 # References
 - https://developer.android.com/studio/projects/android-library
